@@ -1,0 +1,56 @@
+/*********     NAV STYLING     *********/
+.nav-tabs {
+    background-color: #FFB4B0;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.nav-tabs>li>a {
+    color: #a8342e;
+}
+
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    background-color: #a8342e;
+    color: white;
+}
+
+
+/*********     OPTIONS BAR STYLING     *********/
+
+
+
+.options {
+    background-color: #4DD7FA;
+    border-right: 15px;
+    height: 400px;
+}
+
+.majorLabels {
+    margin: 10px;
+}
+
+
+.checkbox {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkbox li {
+    width: 50%;
+    list-style: none;
+}
+
+.checkbox li label {
+    margin: 2px;
+}
+
+
+#filter {
+    text-align: center;
+    width: 80%;
+    margin: 20px 10%;
+}

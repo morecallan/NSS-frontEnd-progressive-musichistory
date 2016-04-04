@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music History</title>
+  <!-- Bootstrap: Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <nav>
+        <ul class = "nav nav-tabs">
+            <li id="listMusicViewButton" class="active"><a href="#">View music</a></li> 
+            <li id="addMusicViewButton"><a href="#">Add music</a></li>
+            <li id="profileViewButton"><a href="#">Profile</a></li>
+        </ul>
+    </nav>
+        
+    <div id="listMusicView" class="row">
+        <section class="options col-md-3 form-group">
+            <form>
+                    <label for="songLength" class="majorLabels">Song Length:</label>
+                    <input type="range" name="songLength" class="songLength">
+                    
+                    <label for="artist" class="majorLabels">Artist:</label>
+                    <select name="artist">
+                      <option value="theWiggles">The Wiggles</option> 
+                      <option value="theOkeeDokeeBrothers">The Okee Dokee Brothers</option>
+                      <option value="alvinAndTheChipmunks">Alvin and the Chipmunks</option>
+                      <option value="kidzBopKids">Kidz Bop Kids</option>
+                      <option value="hi5">Hi 5</option>
+                    </select>
+
+                    <label for="album" class="majorLabels">Album:</label>
+                    <select name="album">
+                      <option value="kidzBop30">Kidz Bop 30</option> 
+                      <option value="takingItOutside">Taking it Outside</option>
+                      <option value="christmasWithTheChipmunks">Christmas with the Chipmunks</option>
+                      <option value="yummyYummy">Yummy Yummy</option>
+                      <option value="spaceMagic">Space Magic</option>
+                    </select>
+
+                    
+                    <section class="checkboxes">
+                    <label class="majorLabels">Genre:</label>
+                        <ul class="checkbox"> 
+                          <li><input type="checkbox" id="rock" value="rock"/><label for="rock">Rock</label></li>
+                          <li><input type="checkbox" id="classical" value="classical"/><label for="classical">Classical</label></li>  
+                          <li><input type="checkbox" id="pop" value="pop"/><label for="pop">Pop</label></li> 
+                          <li><input type="checkbox" id="jazz" value="jazz"/><label for="jazz">Jazz</label></li> 
+                          <li><input type="checkbox" id="blues" value="blues"/><label for="blues">Blues</label></li> 
+                          <li><input type="checkbox" id="hiphop" value="hiphop"/><label for="hiphop>">Hip Hop</label></li> 
+                        </ul> 
+                    </section>
+
+                    <button class="btn btn-default" id="filter">Filter</button>
+            </form>
+        </section>
+    
+
+        <section id="songList" class="col-md-9"></section>
+        <button id="moreButton">More</button>
+    <div>
+
+    <div id="addMusicView" class="hidden" >
+      <!-- Add a DOM element that contains some input fields for the user to enter in the name of a song, the artist for the song, and the album. You do not need to enclose them in a <form> element because we're not actually submitting this form anywhere. -->
+      <label for="addSongName">Song Name</label>
+      <input type="text" id="addSongName">
+      <label for="addArtist">Artist</label>
+      <input type="text" id="addArtist">
+      <label for="addAlbum">Album</label>
+      <input type="text" id="addAlbum">
+
+      <a class="button" id="addSong">Add</a>
+    </div>
+
+
+<!-- Bootstrap: jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Bootstrap: Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
