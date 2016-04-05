@@ -1,0 +1,31 @@
+{
+  "songs": [
+    {
+      "name": "TestSongName1",
+      "artist": "TestSongArtist1",
+      "album": "TestSongAlbum1",
+      "genre": "TestSongGenre1"
+    },
+    {
+      "name": "TestSongName2",
+      "artist": "TestSongArtist2",
+      "album": "TestSongAlbum2",
+      "genre": "TestSongGenre2"
+    },
+
+    {
+      "name": "TestSongName3",
+      "artist": "TestSongArtist3",
+      "album": "TestSongAlbum3",
+      "genre": "TestSongGenre3"
+    },
+
+    {
+      "name": "TestSongName4",
+      "artist": "TestSongArtist4",
+      "album": "TestSongAlbum4",
+      "genre": "TestSongGenre4"
+    }
+
+  ]
+}

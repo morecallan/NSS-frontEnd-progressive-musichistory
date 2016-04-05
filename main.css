@@ -1,3 +1,13 @@
+/*********     SHOW/HIDE STYLING     *********/
+.hidden {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+
 /*********     NAV STYLING     *********/
 .nav-tabs {
     background-color: #FFB4B0;
@@ -20,19 +30,27 @@
 
 
 /*********     OPTIONS BAR STYLING     *********/
-
-
-
 .options {
     background-color: #4DD7FA;
-    border-right: 15px;
+    border: 15px solid transparent;
     height: 400px;
+    border-radius: 5px;
 }
 
 .majorLabels {
     margin: 10px;
+    display: block;
 }
 
+input[type=range] {
+    width: 80%;
+    margin: 5px 10%; 
+}
+
+.options select {
+    width: 80%;
+    margin: 5px 10%;
+}
 
 .checkbox {
     display: flex;
@@ -46,11 +64,61 @@
 
 .checkbox li label {
     margin: 2px;
+    padding-left: 2px;
 }
-
 
 #filter {
     text-align: center;
     width: 80%;
     margin: 20px 10%;
+}
+
+
+/*********     MAIN SONG LIST STYLING     *********/
+
+#songList {
+    height: 400px;
+    background-color: #FEFAC0;
+    border-radius: 5px;
+    overflow: auto;
+    border: 15px solid transparent;
+}
+
+h2 {
+    color: #785616;
+}
+
+#songList ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#songList li{
+    display: inline-block;
+    list-style: none;
+    border-radius: 5px;
+    border: 2px solid #785616;
+    width: 20%;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.deleteButton {
+    background-color: #785616;
+    color: white;
+}
+
+.deleteButton:hover {
+    color: white;
+}
+
+#moreButton {
+    margin: 5px 30px 0 0;
+    float: right;
+}
+
+/*********     ADD MUSIC VIEW STYLING     *********/
+#addMusicView {
+    background-color: orange;
 }
