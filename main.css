@@ -120,5 +120,21 @@ h2 {
 
 /*********     ADD MUSIC VIEW STYLING     *********/
 #addMusicView {
-    background-color: orange;
+    background-color: slategray;
+    width: 50%;
+    margin: 10px 25%;
+}
+
+.inputRow input{
+    width: 80%;
+    margin: 5px 10%;
+}
+
+.inputRow label{
+    margin: 5px 10%;
+}
+
+#addMusicView button {
+    width: 60%;
+    margin: 20px 20%;
 }

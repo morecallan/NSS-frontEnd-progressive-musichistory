@@ -66,16 +66,22 @@
         <button id="moreButton" class="btn"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>More</button>
     </div>
 
-    <div id="addMusicView" class="hidden">
+    <div id="addMusicView" class="hidden container">
       <!-- Add a DOM element that contains some input fields for the user to enter in the name of a song, the artist for the song, and the album. You do not need to enclose them in a <form> element because we're not actually submitting this form anywhere. -->
-      <label for="addSongName">Song Name</label>
-      <input type="text" id="addSongName">
-      <label for="addArtist">Artist</label>
-      <input type="text" id="addArtist">
-      <label for="addAlbum">Album</label>
-      <input type="text" id="addAlbum">
+      <div class="row inputRow">
+        <label for="addSongName">Song Name</label>
+        <input type="text" id="addSongName" class="form-control">
+      </div>
+      <div class="row inputRow">
+        <label for="addArtist">Artist</label>
+        <input type="text" id="addArtist" class="form-control">
+      </div>
+      <div class="row inputRow">
+        <label for="addAlbum">Album</label>
+        <input type="text" id="addAlbum" class="form-control">
+      </div>
 
-      <a class="button" id="addSong">Add</a>
+      <button class="btn" id="addSong">Add</button>
     </div>
 
 

@@ -23,6 +23,8 @@ function addMusicView() {
     $("#addMusicView").removeClass("hidden");
     $("#addMusicView").addClass("visible");
     //Add active class to add music tab, remove it from view music tab
+    $("#addMusicViewButton").addClass("active");
+    $("#listMusicViewButton").removeClass("active");
 }
 
 function listMusicView() {
@@ -30,6 +32,8 @@ function listMusicView() {
     $("#addMusicView").addClass("hidden");
     $("#addMusicView").removeClass("visible");
     //Add active class to view music tab, remove it from add music tab
+    $("#addMusicViewButton").removeClass("active");
+    $("#listMusicViewButton").addClass("active");
 }
 
 // Cycles through each item in the song array and adds it to the DOM
