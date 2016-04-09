@@ -6,12 +6,14 @@ var moreMusic = document.getElementById("moreButton");
 var songArray = [];
 
 // Read from local JSON file with an XHR on page load
-$.get("songs1.json", function(data){
-    let musicItems = data.songs;
-    $.each(data.songs, function(index, musicItems) {
+$.ajax({
+        url: "songs1.json"
+    }).done(function(data){
+        let musicItems = data.songs;
+        $.each(data.songs, function(index, musicItems) {
         addASong(musicItems);
-    })
-})
+    });
+});
 
 //Add event listeners for navigation tabs
 $("#addMusicViewButton").click(addMusicView);
@@ -95,11 +97,13 @@ $("#moreButton").click(loadNextJson);
 
 
 function loadNextJson(e) {
-    $.get("songs2.json", function(data){
-        let musicItems2 = data.songs;
-        $.each(data.songs, function(index, musicItems2) {
+    $.ajax({
+            url: "songs2.json"
+        }).done(function(data){
+            let musicItems2 = data.songs;
+            $.each(data.songs, function(index, musicItems2) {
             addASong(musicItems2);
-        })
+        });
     });
 };
 
