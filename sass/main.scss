@@ -1,0 +1,155 @@
+$white-accent: #fff;
+$gray-accent: #708090;
+$pepto-bismal: #FFB4B0;
+$brick-house: #a8342e;
+$sky-blue: #4dd7fa;
+$light-yellow: #FEFAC0;
+$poop-gold: #785616;
+
+/******************************************/
+/*********     TOGGLE CLASSES     *********/
+/******************************************/
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+/******************************************/
+/*********       NAVIGATION       *********/
+/******************************************/
+
+.nav-tabs {
+  background-color: $pepto-bismal;
+  color: $white-accent;
+  font-weight: bold;
+  margin-bottom: 15px;
+  > li {
+    > a {
+      color: $brick-house;
+    }
+    &.active > a {
+      background-color: $brick-house;
+      color: $white-accent;
+      &:focus, &:hover {
+        background-color: $brick-house;
+        color: $white-accent;
+      }
+    }
+  }
+}
+
+
+
+/******************************************/
+/*********       OPTIONS BAR      *********/
+/******************************************/
+.options {
+  background-color: $sky-blue;
+  border: 15px solid transparent;
+  height: 400px;
+  border-radius: 5px;
+}
+
+.majorLabels {
+  margin: 10px;
+  display: block;
+}
+
+input[type=range], .options select {
+  width: 80%;
+  margin: 5px 10%;
+}
+
+.checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  li {
+    width: 50%;
+    list-style: none;
+    label {
+      margin: 2px;
+      padding-left: 2px;
+    }
+  }
+}
+
+#filter {
+  text-align: center;
+  width: 80%;
+  margin: 20px 10%;
+}
+
+
+/******************************************/
+/*********     MAIN SONG LIST     *********/
+/******************************************/
+#songList {
+  height: 400px;
+  background-color: $light-yellow;
+  border-radius: 5px;
+  overflow: auto;
+  border: 15px solid transparent;
+}
+
+h2 {
+  color: $poop-gold;
+}
+
+#songList {
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  li {
+    display: inline-block;
+    list-style: none;
+    border-radius: 5px;
+    border: 2px solid $poop-gold;
+    width: 20%;
+    text-align: center;
+    padding-top: 5px;
+  }
+}
+
+.deleteButton {
+  background-color: $poop-gold;
+  color: $white-accent;
+  &:hover {
+    color: $white-accent;
+  }
+}
+
+#moreButton {
+  margin: 5px 30px 0 0;
+  float: right;
+}
+
+
+/******************************************/
+/*********     ADD SONG VIEW      *********/
+/******************************************/
+#addMusicView {
+  background-color: $gray-accent;
+  width: 50%;
+  margin: 10px 25%;
+}
+
+.inputRow {
+  input {
+    width: 80%;
+    margin: 5px 10%;
+  }
+  label {
+    margin: 5px 10%;
+  }
+}
+
+#addMusicView button {
+  width: 60%;
+  margin: 20px 20%;
+}
