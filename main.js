@@ -39,7 +39,7 @@ function listMusicView() {
 function addToDom(songArray){
     let buildString = ""
     for (let i = 0; i < songArray.length; i++) {
-        buildString += `<section>`;
+        buildString += `<section data-songposition=${i}>`;
         buildString += `<h2> ${songArray[i]["name"]} </h2>`;
         buildString += `<ul class='song'>`;
         buildString += `<li> ${songArray[i]["artist"]}</li>`;
@@ -59,8 +59,9 @@ function addEventListenerToDeleteButton() {
 
 //Removes the parent (song) of the delete button from the songlist
 function deleteSong(e) {
-    let child = $(e.target).parent().parent();
-    $(child, "#songList").remove();
+    let songPosition = $($(this).closest("section")[0]).data("songposition");
+    songArray.splice(songPosition, 1);
+    addToDom(songArray);
 }
 
 
@@ -68,9 +69,9 @@ function deleteSong(e) {
 $("#addButton").click(createNewSongArray)
 
 function createNewSongArray() {
-    let songInput = $("#addSongName").value;
-    let artistInput = $("#addArtist").value;
-    let albumInput = $("#addAlbum").value;
+    let songInput = $("#addSongName").val();
+    let artistInput = $("#addArtist").val();
+    let albumInput = $("#addAlbum").val();
     let newSongArray = [songInput, artistInput, albumInput]
     addASong(newSongArray);
     clearFields();
