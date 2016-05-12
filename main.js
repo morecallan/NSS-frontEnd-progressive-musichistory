@@ -1,8 +1,5 @@
 "use strict"
 // Song List Display Area
-var addButton = document.getElementById("addSong");
-var moreMusic = document.getElementById("moreButton");
-
 var songArray = [];
 
 // Read from local JSON file with an XHR on page load
@@ -95,7 +92,6 @@ function addASong(newSongArray) {
 //When the user clicks the MORE button, load the songs from the second JSON file and append them to the bottom of the existing music, but before the More button.
 $("#moreButton").click(loadNextJson);
 
-
 function loadNextJson(e) {
     $.ajax({
             url: "songs2.json"
@@ -106,5 +102,3 @@ function loadNextJson(e) {
         });
     });
 };
-
-        // songList.classList.add("overflow");
