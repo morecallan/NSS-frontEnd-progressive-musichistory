@@ -1,10 +1,12 @@
-"use strict"
+"use strict";
+
+
 // Song List Display Area
 var songArray = [];
 
 // Read from local JSON file with an XHR on page load
 $.ajax({
-        url: "songs1.json"
+        url: "json/songs1.json"
     }).done(function(data){
         let musicItems = data.songs;
         $.each(data.songs, function(index, musicItems) {
@@ -37,14 +39,14 @@ function listMusicView() {
 
 // Cycles through each item in the song array and adds it to the DOM
 function addToDom(songArray){
-    let buildString = ""
+    let buildString = "";
     for (let i = 0; i < songArray.length; i++) {
-        buildString += `<section>`;
-        buildString += `<h2> ${songArray[i]["name"]} </h2>`;
+        buildString += `<section data-songposition=${i}>`;
+        buildString += `<h2> ${songArray[i].name} </h2>`;
         buildString += `<ul class='song'>`;
-        buildString += `<li> ${songArray[i]["artist"]}</li>`;
-        buildString += `<li> ${songArray[i]["album"]} </li>`;
-        buildString += `<li> ${songArray[i]["genre"]} </li>`;
+        buildString += `<li> ${songArray[i].artist}</li>`;
+        buildString += `<li> ${songArray[i].album} </li>`;
+        buildString += `<li> ${songArray[i].genre} </li>`;
         buildString += `<button class='btn deleteButton'>Delete</button>`;
         buildString += `</ul> </section>`;
     }
@@ -54,24 +56,25 @@ function addToDom(songArray){
 
 //Enables Event Handler to Delete Song Button as they are added to the DOM
 function addEventListenerToDeleteButton() {
-    $(".deleteButton").click(deleteSong)
+    $(".deleteButton").click(deleteSong);
 }
 
 //Removes the parent (song) of the delete button from the songlist
 function deleteSong(e) {
-    let child = $(e.target).parent().parent();
-    $(child, "#songList").remove();
+    var songPosition = $($(e).closest("section")[0]).data("songposition");
+    songArray.splice(songPosition, 1);
+    addToDom(songArray);
 }
 
 
 // Grabs input from addSong page and creates an array
-$("#addButton").click(createNewSongArray)
+$("#addButton").click(createNewSongArray);
 
 function createNewSongArray() {
-    let songInput = $("#addSongName").value;
-    let artistInput = $("#addArtist").value;
-    let albumInput = $("#addAlbum").value;
-    let newSongArray = [songInput, artistInput, albumInput]
+    let songInput = $("#addSongName").val();
+    let artistInput = $("#addArtist").val();
+    let albumInput = $("#addAlbum").val();
+    let newSongArray = [songInput, artistInput, albumInput];
     addASong(newSongArray);
     clearFields();
 }
@@ -94,11 +97,11 @@ $("#moreButton").click(loadNextJson);
 
 function loadNextJson(e) {
     $.ajax({
-            url: "songs2.json"
+            url: "json/songs2.json"
         }).done(function(data){
             let musicItems2 = data.songs;
             $.each(data.songs, function(index, musicItems2) {
             addASong(musicItems2);
         });
     });
-};
+}
