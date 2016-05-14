@@ -11,7 +11,8 @@ function loadUpMySongsFromFirebase() {
     }).done(function(data){
         let musicItems = data;
         $.each(musicItems, function(index, musicItems) {
-            addASong(musicItems);
+            let myKey = index;
+            addASong(musicItems, myKey);
         });
     });
 }
@@ -21,7 +22,16 @@ function loadUpMySongsFromFirebaseNew(myKey) {
         url: `https://callan-music-history.firebaseio.com/songs/${myKey}.json`
     }).done(function(data){
         let musicItems = data;
-        addASong(musicItems);
+        addASong(musicItems, myKey);
+    });
+}
+
+function deleteSongsFromFirebase(myKey) {
+    $.ajax({
+        url: `https://callan-music-history.firebaseio.com/songs/${myKey}/.json`,
+        type: "DELETE"
+    }).done(function(data){
+        console.log("goodbye bitch");
     });
 }
 
@@ -55,7 +65,7 @@ function listMusicView() {
 function addToDom(songArray){
     let buildString = "";
     for (let i = 0; i < songArray.length; i++) {
-        buildString += `<section data-songposition=${i}>`;
+        buildString += `<section data-songkey=${songArray[i].key} data-songposition=${i}>`;
         buildString += `<h2> ${songArray[i].name} </h2>`;
         buildString += `<ul class='song'>`;
         buildString += `<li> ${songArray[i].artist}</li>`;
@@ -75,8 +85,11 @@ function addEventListenerToDeleteButton() {
 
 //Removes the parent (song) of the delete button from the songlist
 function deleteSong(e) {
-    var songPosition = $($(e).closest("section")[0]).data("songposition");
-    songArray.splice(songPosition, 1);
+    var songPosition = $($(this).closest("section")[0]).data("songkey");
+    deleteSongsFromFirebase(songPosition);
+    var arrayPosition = $($(this).closest("section")[0]).data("songposition");
+    console.log("arrayPosition", arrayPosition);
+    songArray.splice(arrayPosition, 1);
     addToDom(songArray);
 }
 
@@ -117,7 +130,8 @@ function addASongToDatabase(newSongObject) {
 }
 
 //Adds new song array to full song list of arrays
-function addASong(newSongArray) {
+function addASong(newSongArray, newSongKey) {
+    newSongArray.key = newSongKey;
     songArray.unshift(newSongArray);
     addToDom(songArray);
 }
