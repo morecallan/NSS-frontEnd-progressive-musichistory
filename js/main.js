@@ -5,19 +5,31 @@
 var songArray = [];
 
 // Read from local JSON file with an XHR on page load
-$.ajax({
-        url: "json/songs1.json"
+function loadUpMySongsFromFirebase() {
+    $.ajax({
+        url: `https://callan-music-history.firebaseio.com/songs/.json`
     }).done(function(data){
-        let musicItems = data.songs;
-        $.each(data.songs, function(index, musicItems) {
+        let musicItems = data;
+        $.each(musicItems, function(index, musicItems) {
+            addASong(musicItems);
+        });
+    });
+}
+
+function loadUpMySongsFromFirebaseNew(myKey) {
+    $.ajax({
+        url: `https://callan-music-history.firebaseio.com/songs/${myKey}.json`
+    }).done(function(data){
+        let musicItems = data;
         addASong(musicItems);
     });
-});
+}
+
+loadUpMySongsFromFirebase();
 
 //Add event listeners for navigation tabs
 $("#addMusicViewButton").click(addMusicView);
 $("#listMusicViewButton").click(listMusicView);
-
 
 function addMusicView() {
     $("#listMusicView").addClass("hidden");
@@ -37,6 +49,8 @@ function listMusicView() {
     $("#listMusicViewButton").addClass("active");
 }
 
+
+
 // Cycles through each item in the song array and adds it to the DOM
 function addToDom(songArray){
     let buildString = "";
@@ -47,7 +61,7 @@ function addToDom(songArray){
         buildString += `<li> ${songArray[i].artist}</li>`;
         buildString += `<li> ${songArray[i].album} </li>`;
         buildString += `<li> ${songArray[i].genre} </li>`;
-        buildString += `<button class='btn deleteButton'>Delete</button>`;
+        buildString += `<button class="btn deleteButton"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  Delete</button>`;
         buildString += `</ul> </section>`;
     }
     $("#songList").html (buildString);
@@ -68,40 +82,42 @@ function deleteSong(e) {
 
 
 // Grabs input from addSong page and creates an array
-$("#addButton").click(createNewSongArray);
+$("#addSong").click(createNewSongArray);
 
 function createNewSongArray() {
     let songInput = $("#addSongName").val();
     let artistInput = $("#addArtist").val();
     let albumInput = $("#addAlbum").val();
-    let newSongArray = [songInput, artistInput, albumInput];
-    addASong(newSongArray);
+    let genreInput = "sampleGenre";
+    let newSongObject = JSON.stringify({
+      "name": songInput,
+      "artist": artistInput,
+      "album": albumInput,
+      "genre": genreInput
+    });
+    addASongToDatabase(newSongObject);
     clearFields();
 }
 
 function clearFields() {
-    $("#addSongName").value = "";
-    $("#addArtist").value = "";
-    $("#addAlbum").value = "";
+    $("#addSongName").val("");
+    $("#addArtist").val("");
+    $("#addAlbum").val("");
 }
 
+function addASongToDatabase(newSongObject) {
+    $.ajax({
+    type: "POST",
+    url: `https://callan-music-history.firebaseio.com/songs/.json`,
+    data: newSongObject,
+    }).done(function(data){
+        loadUpMySongsFromFirebaseNew(data.name);
+        listMusicView();
+    });
+}
 
 //Adds new song array to full song list of arrays
 function addASong(newSongArray) {
-    songArray.push(newSongArray);
+    songArray.unshift(newSongArray);
     addToDom(songArray);
-}
-
-//When the user clicks the MORE button, load the songs from the second JSON file and append them to the bottom of the existing music, but before the More button.
-$("#moreButton").click(loadNextJson);
-
-function loadNextJson(e) {
-    $.ajax({
-            url: "json/songs2.json"
-        }).done(function(data){
-            let musicItems2 = data.songs;
-            $.each(data.songs, function(index, musicItems2) {
-            addASong(musicItems2);
-        });
-    });
 }
