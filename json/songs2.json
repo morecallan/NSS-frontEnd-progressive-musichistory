@@ -1,31 +1,31 @@
 {
-  "songs": [
-    {
+  "more-songs": {
+    "five": {
       "name": "TestSongName5",
       "artist": "TestSongArtist5",
       "album": "TestSongAlbum5",
       "genre": "TestSongGenre5"
     },
-    {
+
+    "six": {
       "name": "TestSongName6",
       "artist": "TestSongArtist6",
       "album": "TestSongAlbum6",
       "genre": "TestSongGenre6"
     },
 
-    {
+    "seven": {
       "name": "TestSongName7",
       "artist": "TestSongArtist7",
       "album": "TestSongAlbum7",
       "genre": "TestSongGenre7"
     },
 
-    {
+    "eight": {
       "name": "TestSongName8",
       "artist": "TestSongArtist8",
       "album": "TestSongAlbum8",
       "genre": "TestSongGenre8"
     }
-
-  ]
+  }
 }

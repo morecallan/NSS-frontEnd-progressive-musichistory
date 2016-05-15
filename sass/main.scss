@@ -1,10 +1,10 @@
-$white-accent: #fff;
-$gray-accent: #708090;
-$pepto-bismal: #FFB4B0;
-$brick-house: #a8342e;
-$sky-blue: #4dd7fa;
-$light-yellow: #FEFAC0;
-$poop-gold: #785616;
+$white-accent: #E3DED0;
+$gray-accent: #D59858;
+$pepto-bismal: #837D7F;
+$brick-house: #7C3655; // 
+$sky-blue: #5C9598; //
+$light-yellow: #007680;
+$poop-gold: #C4B7A5;
 
 /******************************************/
 /*********     TOGGLE CLASSES     *********/
@@ -21,13 +21,24 @@ $poop-gold: #785616;
 /******************************************/
 /*********       NAVIGATION       *********/
 /******************************************/
+body {
+  width: 90%;
+  margin: 5%;
+  background-color: #E3DED0;
+}
+
+
 
 .nav-tabs {
   background-color: $pepto-bismal;
   color: $white-accent;
+  width: 103%;
+  margin: -1.5%;
+  border-radius: 2px;
   font-weight: bold;
   margin-bottom: 15px;
   > li {
+    margin-left: 10px;
     > a {
       color: $brick-house;
     }
@@ -97,7 +108,12 @@ input[type=range], .options select {
 
 h2 {
   color: $poop-gold;
-}
+  margin-left: 0;
+  text-align: center;
+  background-color: rgba($sky-blue, 50%);
+  border-radius: 5px;
+  width: 85%;
+  }
 
 #songList {
   ul {
@@ -117,7 +133,7 @@ h2 {
 }
 
 .deleteButton {
-  background-color: $poop-gold;
+  background-color: $gray-accent;
   color: $white-accent;
   &:hover {
     color: $white-accent;
