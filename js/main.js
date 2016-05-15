@@ -1,42 +1,9 @@
 "use strict";
 
 
-// Song List Display Area
-var songArray = [];
-
-// Read from local JSON file with an XHR on page load
-function loadUpMySongsFromFirebase() {
-    $.ajax({
-        url: `https://callan-music-history.firebaseio.com/songs/.json`
-    }).done(function(data){
-        let musicItems = data;
-        $.each(musicItems, function(index, musicItems) {
-            let myKey = index;
-            addASong(musicItems, myKey);
-        });
-    });
-}
-
-function loadUpMySongsFromFirebaseNew(myKey) {
-    $.ajax({
-        url: `https://callan-music-history.firebaseio.com/songs/${myKey}.json`
-    }).done(function(data){
-        let musicItems = data;
-        addASong(musicItems, myKey);
-    });
-}
-
-function deleteSongsFromFirebase(myKey) {
-    $.ajax({
-        url: `https://callan-music-history.firebaseio.com/songs/${myKey}/.json`,
-        type: "DELETE"
-    }).done(function(data){
-        console.log("goodbye bitch");
-    });
-}
-
-loadUpMySongsFromFirebase();
-
+/********************************************
+**            NAVIGATION - VIEWS           **
+********************************************/
 //Add event listeners for navigation tabs
 $("#addMusicViewButton").click(addMusicView);
 $("#listMusicViewButton").click(listMusicView);
@@ -61,23 +28,68 @@ function listMusicView() {
 
 
 
-// Cycles through each item in the song array and adds it to the DOM
-function addToDom(songArray){
+/********************************************
+**          DATABASE INTERACTION           **
+********************************************/
+function loadUpMySongsFromFirebase() {
+    $.ajax({
+        url: `https://callan-music-history.firebaseio.com/songs/.json`
+    }).done(function(data){
+        $("#songList").html("");
+        $.each(data, function(index, data) {
+            populateDOM(index, data);
+        });
+    });
+}
+
+function deleteSongsFromFirebase(myKey) {
+    $.ajax({
+        url: `https://callan-music-history.firebaseio.com/songs/${myKey}/.json`,
+        type: "DELETE"
+    }).done(function(data){
+        loadUpMySongsFromFirebase();
+    });
+}
+
+function addASongToFirebase(newSongObject) {
+    $.ajax({
+    type: "POST",
+    url: `https://callan-music-history.firebaseio.com/songs/.json`,
+    data: newSongObject,
+    }).done(function(data){
+        loadUpMySongsFromFirebase();
+        listMusicView();
+    });
+}
+
+//Initiates load from database on page load
+loadUpMySongsFromFirebase();
+
+
+
+
+/********************************************
+**          POPUATING DATA - DOM           **
+********************************************/
+// Cycles through each item in the song object and adds it to the DOM
+function populateDOM(index, song){
     let buildString = "";
-    for (let i = 0; i < songArray.length; i++) {
-        buildString += `<section data-songkey=${songArray[i].key} data-songposition=${i}>`;
-        buildString += `<h2> ${songArray[i].name} </h2>`;
-        buildString += `<ul class='song'>`;
-        buildString += `<li> ${songArray[i].artist}</li>`;
-        buildString += `<li> ${songArray[i].album} </li>`;
-        buildString += `<li> ${songArray[i].genre} </li>`;
-        buildString += `<button class="btn deleteButton"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  Delete</button>`;
-        buildString += `</ul> </section>`;
-    }
-    $("#songList").html (buildString);
+    buildString += `<section data-songkey=${index}>`;
+    buildString += `<h2> ${song.name} </h2>`;
+    buildString += `<ul class='song'>`;
+    buildString += `<li> ${song.artist}</li>`;
+    buildString += `<li> ${song.album} </li>`;
+    buildString += `<li> ${song.genre} </li>`;
+    buildString += `<button class="btn deleteButton"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  Delete</button>`;
+    buildString += `</ul> </section>`;
+    $("#songList").append(buildString);
     addEventListenerToDeleteButton();
 }
 
+
+/********************************************
+**              DELETING A SONG            **
+********************************************/
 //Enables Event Handler to Delete Song Button as they are added to the DOM
 function addEventListenerToDeleteButton() {
     $(".deleteButton").click(deleteSong);
@@ -87,17 +99,13 @@ function addEventListenerToDeleteButton() {
 function deleteSong(e) {
     var songPosition = $($(this).closest("section")[0]).data("songkey");
     deleteSongsFromFirebase(songPosition);
-    var arrayPosition = $($(this).closest("section")[0]).data("songposition");
-    console.log("arrayPosition", arrayPosition);
-    songArray.splice(arrayPosition, 1);
-    addToDom(songArray);
 }
 
 
 // Grabs input from addSong page and creates an array
-$("#addSong").click(createNewSongArray);
+$("#addSong").click(createNewSongObject);
 
-function createNewSongArray() {
+function createNewSongObject() {
     let songInput = $("#addSongName").val();
     let artistInput = $("#addArtist").val();
     let albumInput = $("#addAlbum").val();
@@ -108,7 +116,7 @@ function createNewSongArray() {
       "album": albumInput,
       "genre": genreInput
     });
-    addASongToDatabase(newSongObject);
+    addASongToFirebase(newSongObject);
     clearFields();
 }
 
@@ -116,22 +124,4 @@ function clearFields() {
     $("#addSongName").val("");
     $("#addArtist").val("");
     $("#addAlbum").val("");
-}
-
-function addASongToDatabase(newSongObject) {
-    $.ajax({
-    type: "POST",
-    url: `https://callan-music-history.firebaseio.com/songs/.json`,
-    data: newSongObject,
-    }).done(function(data){
-        loadUpMySongsFromFirebaseNew(data.name);
-        listMusicView();
-    });
-}
-
-//Adds new song array to full song list of arrays
-function addASong(newSongArray, newSongKey) {
-    newSongArray.key = newSongKey;
-    songArray.unshift(newSongArray);
-    addToDom(songArray);
 }
