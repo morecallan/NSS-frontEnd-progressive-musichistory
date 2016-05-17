@@ -126,7 +126,7 @@ function deleteSong(e) {
 
 // Grabs input from addSong page and creates an array
 $("#addSong").click(function(e) {
-    let dataSongkey = $(e.currentTarget).data("songkey");
+    let dataSongkey = $(e.currentTarget).data("songposition");
     if (dataSongkey === "") {
         createNewSongObject();
     } else if (dataSongkey !== "") {
