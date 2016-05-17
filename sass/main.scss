@@ -37,17 +37,27 @@ body {
   border-radius: 2px;
   font-weight: bold;
   margin-bottom: 15px;
+  border-top: none;
+  border-bottom: none;
   > li {
     margin-left: 10px;
+    border-top: none;
+    border-bottom: none;
     > a {
       color: $brick-house;
+      border-top: none;
+      border-bottom: none;
     }
     &.active > a {
       background-color: $brick-house;
       color: $white-accent;
+      border-top: none;
+      border-bottom: none;
       &:focus, &:hover {
         background-color: $brick-house;
         color: $white-accent;
+        border-top: none;
+        border-bottom: none;
       }
     }
   }
@@ -134,6 +144,14 @@ h2 {
 
 .deleteButton {
   background-color: $gray-accent;
+  color: $white-accent;
+  &:hover {
+    color: $white-accent;
+  }
+}
+
+.editButton {
+  background-color: $brick-house;
   color: $white-accent;
   &:hover {
     color: $white-accent;

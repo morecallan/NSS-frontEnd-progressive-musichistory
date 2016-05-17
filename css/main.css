@@ -22,17 +22,27 @@ body {
   margin: -1.5%;
   border-radius: 2px;
   font-weight: bold;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  border-top: none;
+  border-bottom: none; }
   .nav-tabs > li {
-    margin-left: 10px; }
+    margin-left: 10px;
+    border-top: none;
+    border-bottom: none; }
     .nav-tabs > li > a {
-      color: #7C3655; }
+      color: #7C3655;
+      border-top: none;
+      border-bottom: none; }
     .nav-tabs > li.active > a {
       background-color: #7C3655;
-      color: #E3DED0; }
+      color: #E3DED0;
+      border-top: none;
+      border-bottom: none; }
       .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
         background-color: #7C3655;
-        color: #E3DED0; }
+        color: #E3DED0;
+        border-top: none;
+        border-bottom: none; }
 
 /******************************************/
 /*********       OPTIONS BAR      *********/
@@ -102,6 +112,12 @@ h2 {
   background-color: #D59858;
   color: #E3DED0; }
   .deleteButton:hover {
+    color: #E3DED0; }
+
+.editButton {
+  background-color: #7C3655;
+  color: #E3DED0; }
+  .editButton:hover {
     color: #E3DED0; }
 
 #moreButton {
