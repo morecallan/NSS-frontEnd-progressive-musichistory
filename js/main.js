@@ -1,5 +1,6 @@
 "use strict";
 
+$("#addSong").data("songposition", "");
 
 /********************************************
 **            NAVIGATION - VIEWS           **
@@ -62,6 +63,25 @@ function addASongToFirebase(newSongObject) {
     });
 }
 
+function editASongToFirebase(myKey, updatedSongObject) {
+    $.ajax({
+    type: "PUT",
+    url: `https://callan-music-history.firebaseio.com/songs/${myKey}/.json`,
+    data: updatedSongObject,
+    }).done(function(data){
+        loadUpMySongsFromFirebase();
+        listMusicView();
+    });
+}
+
+function loadOneSongsFromFirebase(myKey) {
+    $.ajax({
+        url: `https://callan-music-history.firebaseio.com/songs/${myKey}/.json`
+    }).done(function(data){
+        fillEditValues(data);
+    });
+}
+
 //Initiates load from database on page load
 loadUpMySongsFromFirebase();
 
@@ -81,9 +101,11 @@ function populateDOM(index, song){
     buildString += `<li> ${song.album} </li>`;
     buildString += `<li> ${song.genre} </li>`;
     buildString += `<button class="btn deleteButton"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  Delete</button>`;
+    buildString += `<button class="btn editButton"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>  Edit</button>`;
     buildString += `</ul> </section>`;
     $("#songList").append(buildString);
     addEventListenerToDeleteButton();
+    addEventListenerToEditButton();
 }
 
 
@@ -97,13 +119,20 @@ function addEventListenerToDeleteButton() {
 
 //Removes the parent (song) of the delete button from the songlist
 function deleteSong(e) {
-    var songPosition = $($(this).closest("section")[0]).data("songkey");
+    let songPosition = $($(this).closest("section")[0]).data("songkey");
     deleteSongsFromFirebase(songPosition);
 }
 
 
 // Grabs input from addSong page and creates an array
-$("#addSong").click(createNewSongObject);
+$("#addSong").click(function(e) {
+    let dataSongkey = $(e.currentTarget).data("songkey");
+    if (dataSongkey === "") {
+        createNewSongObject();
+    } else if (dataSongkey !== "") {
+        edit(e);
+    }
+});
 
 function createNewSongObject() {
     let songInput = $("#addSongName").val();
@@ -120,8 +149,46 @@ function createNewSongObject() {
     clearFields();
 }
 
+function edit(e){
+    let myKey = $(e.currentTarget).data("songposition");
+    let songInput = $("#addSongName").val();
+    let artistInput = $("#addArtist").val();
+    let albumInput = $("#addAlbum").val();
+    let genreInput = "sampleGenre";
+    let editSongObject = JSON.stringify({
+      "name": songInput,
+      "artist": artistInput,
+      "album": albumInput,
+      "genre": genreInput
+    });
+    editASongToFirebase(myKey, editSongObject);
+    $("#addSong").data("songposition", "");
+    clearFields();
+}
+
 function clearFields() {
     $("#addSongName").val("");
     $("#addArtist").val("");
     $("#addAlbum").val("");
+}
+
+
+/********************************************
+**              EDITING A SONG             **
+********************************************/
+function addEventListenerToEditButton() {
+    $(".editButton").click(editSetup);
+}
+
+function editSetup(e) {
+    var songPosition = $($(this).closest("section")[0]).data("songkey");
+    loadOneSongsFromFirebase(songPosition);
+    addMusicView();
+    $("#addSong").data("songposition", songPosition);
+}
+
+function fillEditValues(data) {
+    $("#addSongName").val(data.name);
+    $("#addArtist").val(data.artist);
+    $("#addAlbum").val(data.album);
 }
